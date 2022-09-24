@@ -7,14 +7,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import Models.CourseModel
+import android.annotation.SuppressLint
 
 class CourseAdapter(private val context: Context, courseModelArrayList: ArrayList<CourseModel>) :
     RecyclerView.Adapter<CourseAdapter.ViewHolder>() {
-    private val courseModelArrayList: ArrayList<CourseModel>
+    private var courseModelArrayList: ArrayList<CourseModel>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseAdapter.ViewHolder {
         // to inflate the layout for each item of recycler view.
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
         return ViewHolder(view)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(filterlist: ArrayList<CourseModel>) {
+        // below line is to add our filtered
+        // list in our course array list.
+        courseModelArrayList.clear()
+        courseModelArrayList.addAll(filterlist)
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        this.notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: CourseAdapter.ViewHolder, position: Int) {
