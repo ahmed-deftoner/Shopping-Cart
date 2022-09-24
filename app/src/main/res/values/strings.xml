@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Cart</string>
+    <string name="course_name">C++</string>
+    <string name="course_rating">8.5</string>
 </resources>
