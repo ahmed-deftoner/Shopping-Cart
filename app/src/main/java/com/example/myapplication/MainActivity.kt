@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import Models.CourseModel
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
+
+const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
 class MainActivity : AppCompatActivity() {
 
@@ -101,6 +104,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onListItemClick(position: Int) {
-        Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, Details::class.java).apply {
+            putExtra(EXTRA_MESSAGE, templist[position].getCourse_name())
+        }
+        startActivity(intent)
+        //Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
     }
 }
