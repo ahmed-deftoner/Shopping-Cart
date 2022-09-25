@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import Models.CourseModel
 import android.annotation.SuppressLint
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
-import android.widget.Toast
+import android.widget.EditText
+import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -17,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var courseRV: RecyclerView
     lateinit var courseRVAdapter: CourseAdapter
+    lateinit var templist : ArrayList<CourseModel>
     lateinit var courseModelArrayList: ArrayList<CourseModel>
 
 
@@ -37,8 +41,10 @@ class MainActivity : AppCompatActivity() {
         courseModelArrayList.add(CourseModel("Java for Android", 4, R.drawable.gfg))
         courseModelArrayList.add(CourseModel("HTML and CSS", 4, R.drawable.gfg))
 
+        templist = ArrayList()
+        templist.addAll(courseModelArrayList)
         // we are initializing our adapter class and passing our arraylist to it.
-        val courseAdapter = CourseAdapter(this, courseModelArrayList)
+        val courseAdapter = CourseAdapter(this, templist)
 
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
@@ -47,63 +53,52 @@ class MainActivity : AppCompatActivity() {
         // in below two lines we are setting layoutmanager and adapter to our recycler view.
         courseRV.layoutManager = linearLayoutManager
         courseRV.adapter = courseAdapter
-        courseAdapter.notifyDataSetChanged()
+
     }
 
     // calling on create option menu
     // layout to inflate our menu file.
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // below line is to get our inflater
-        val inflater = menuInflater
 
-        // inside inflater we are inflating our menu file.
-        inflater.inflate(R.menu.search_menu, menu)
+        menuInflater.inflate(R.menu.menu_items, menu)
 
         // below line is to get our menu item.
-        val searchItem: MenuItem = menu.findItem(R.id.actionSearch)
+        val searchItem: MenuItem? = menu.findItem(R.id.search_action)
 
         // getting search view of our item.
-        val searchView: SearchView = searchItem.actionView as SearchView
+        val textView: EditText = searchItem?.actionView as EditText
 
-
-        // below line is to call set on query text listener method.
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener
-        {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                return false
+        textView.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
             }
 
-            override fun onQueryTextChange(msg: String): Boolean {
-                // inside on query text change method we are
-                // calling a method to filter our recycler view.
-                filter(msg)
-                return false
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                templist.clear()
+                val searchText = textView.text.toString().lowercase(Locale.getDefault())
+                if (searchText.isNotEmpty()){
+                    courseModelArrayList.forEach {
+                        if (it.getCourse_name().lowercase(Locale.getDefault()).contains(searchText))
+                            templist.add(it)
+                    }
+                    courseRVAdapter.notifyDataSetChanged()
+                }else{
+                    templist.clear()
+                    templist.addAll(courseModelArrayList)
+                    courseRVAdapter.notifyDataSetChanged()
+                }
             }
+
+
+            override fun afterTextChanged(p0: Editable?) {
+                TODO("Not yet implemented")
+            }
+
         })
+
+
         return true
     }
 
-    private fun filter(text: String) {
-        // creating a new array list to filter our data.
-        val filteredlist: ArrayList<CourseModel> = ArrayList()
-
-        // running a for loop to compare elements.
-        for (item in courseModelArrayList) {
-            // checking if the entered string matched with any item of our recycler view.
-            if (item.getCourse_name().lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
-                // if the item is matched we are
-                // adding it to our filtered list.
-                filteredlist.add(item)
-            }
-        }
-        if (filteredlist.isEmpty()) {
-            // if no item is added in filtered list we are
-            // displaying a toast message as no data found.
-            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
-        } else {
-            // at last we are passing that filtered
-            // list to our adapter class.
-            courseRVAdapter.filterList(filteredlist)
-        }
-    }
 }

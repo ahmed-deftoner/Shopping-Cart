@@ -3,4 +3,5 @@
     <string name="course_name">C++</string>
     <string name="course_rating">8.5</string>
     <string name="search">Search</string>
+    <string name="search_title">Search</string>
 </resources>
