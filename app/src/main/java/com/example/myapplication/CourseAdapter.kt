@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import Models.CourseModel
 import android.annotation.SuppressLint
 
-class CourseAdapter(private val context: Context, courseModelArrayList: ArrayList<CourseModel>) :
+class CourseAdapter(private val context: Context, courseModelArrayList: ArrayList<CourseModel>,
+                    private val onItemClicked: (position: Int) -> Unit) :
     RecyclerView.Adapter<CourseAdapter.ViewHolder>() {
     private var courseModelArrayList: ArrayList<CourseModel>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseAdapter.ViewHolder {
         // to inflate the layout for each item of recycler view.
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view,onItemClicked)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -29,6 +30,7 @@ class CourseAdapter(private val context: Context, courseModelArrayList: ArrayLis
         this.notifyDataSetChanged()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CourseAdapter.ViewHolder, position: Int) {
         // to set data to textview and imageview of each card layout
         val model: CourseModel = courseModelArrayList[position]
@@ -43,14 +45,20 @@ class CourseAdapter(private val context: Context, courseModelArrayList: ArrayLis
     }
 
     // View holder class for initializing of your views such as TextView and Imageview.
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View,private val onItemClicked: (position: Int) -> Unit)
+        : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val courseIV: ImageView
         val courseNameTV: TextView
         val courseRatingTV: TextView
         init {
+            itemView.setOnClickListener(this)
             courseIV = itemView.findViewById(R.id.idIVCourseImage)
             courseNameTV = itemView.findViewById(R.id.idTVCourseName)
             courseRatingTV = itemView.findViewById(R.id.idTVCourseRating)
+        }
+        override fun onClick(v: View) {
+            val position = adapterPosition
+            onItemClicked(position)
         }
     }
 

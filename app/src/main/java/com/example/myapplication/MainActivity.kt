@@ -1,20 +1,18 @@
 package com.example.myapplication
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import Models.CourseModel
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
-import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,7 +42,8 @@ class MainActivity : AppCompatActivity() {
         templist = ArrayList()
         templist.addAll(courseModelArrayList)
         // we are initializing our adapter class and passing our arraylist to it.
-        val courseAdapter = CourseAdapter(this, templist)
+        val courseAdapter = CourseAdapter(this, templist
+        ) { position -> onListItemClick(position) }
 
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         textView.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("Not yet implemented")
+
             }
 
             @SuppressLint("NotifyDataSetChanged")
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
 
             override fun afterTextChanged(p0: Editable?) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -101,4 +100,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    private fun onListItemClick(position: Int) {
+        Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
+    }
 }
