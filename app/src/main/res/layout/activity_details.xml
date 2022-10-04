@@ -16,11 +16,24 @@
     tools:context=".Details">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/scale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="66dp"
+        android:text="TextView"
+        android:textColor="#857E7E"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rating" />
+
+    <TextView
+        android:id="@+id/description"
         android:layout_width="350dp"
         android:layout_height="292dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="48dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="30dp"
         android:text="                &quot;It is obvious that this guitar is from the RG series as it has a double-cutaway Superstrat body. RG421 is made of a mahogany body and it comes with a thin and sturdy Wizard III maple neck that has great playability. The neck is known to be fast and that is for a reason. The rosewood fretboard with white dot inlay features 24 jumbo frets. The tonal range of the guitar is no joke, full two octaves to play with. The RG421 is fitted with two of Ibanez’s high-output Quantum humbuckers. The passive pickups are controlled by volume and tone control knobs, as well as a selector switch for the pickups. Interestingly enough they went for a fixed bridge hear instead of a tremolo.&quot;, "
@@ -28,8 +41,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scale" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button"
@@ -43,31 +55,17 @@
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <TextView
-        android:id="@+id/scale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="5dp"
-        android:text="25.5"
-        android:textColor="#8C9EFF"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.607"
-        app:layout_constraintStart_toEndOf="@+id/body"
-        app:layout_constraintTop_toBottomOf="@+id/rating" />
-
-    <TextView
         android:id="@+id/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="105dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="54dp"
         android:text="Wizard III maple neck"
         android:textColor="#88A5A5"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/scale"
+        app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/rating" />
 
     <ImageView
         android:id="@+id/img"
@@ -86,35 +84,35 @@
         android:id="@+id/name"
         android:layout_width="128dp"
         android:layout_height="55dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif"
         android:text="Ibanez"
         android:textColor="#E4DEDE"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/body"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintHorizontal_bias="0.167"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/img" />
 
     <RatingBar
         android:id="@+id/rating"
         android:layout_width="147dp"
         android:layout_height="51dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="false"
+        android:isIndicator="true"
+        android:numStars="5"
         android:progressBackgroundTint="#FDD835"
         android:rotationX="0"
         android:rotationY="0"
         android:scaleX="0.5"
         android:scaleY="0.5"
         android:stepSize="12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
-        app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/img"
+        app:layout_constraintBottom_toTopOf="@+id/body"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -130,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

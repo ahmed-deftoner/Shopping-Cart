@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
     private fun onListItemClick(position: Int) {
         Toast.makeText(this, guitarModelArrayList[position].name, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, Details::class.java).apply {
-            putExtra("extra_obj", guitarModelArrayList[position] as java.io.Serializable)
+            putExtra("guitar", guitarModelArrayList[position] as java.io.Serializable)
         }
         startActivity(intent)
         //Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
