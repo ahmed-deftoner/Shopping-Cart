@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -117,6 +118,7 @@ class MainActivity : AppCompatActivity() {
 
         // we are initializing our adapter class and passing our arraylist to it.
         val guitarAdapter = GuitarAdapter(this, guitarModelArrayList)
+        { position -> onListItemClick(position) }
 
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
@@ -135,5 +137,14 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_items, menu)
 
         return true
+    }
+
+    private fun onListItemClick(position: Int) {
+        Toast.makeText(this, guitarModelArrayList[position].name, Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, Details::class.java).apply {
+            putExtra(EXTRA_MESSAGE, guitarModelArrayList[position].name)
+        }
+        startActivity(intent)
+        //Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
     }
 }
