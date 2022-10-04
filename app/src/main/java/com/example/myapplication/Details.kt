@@ -12,11 +12,7 @@ class Details : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         // Get the Intent that started this activity and extract the string
-        val guitar = intent.extras?.get("extra_object") as Guitars
+        //val guitar = intent.extras?.get("extra_object") as Guitars
 
-        // Capture the layout's TextView and set the string as its text
-        val textView = findViewById<TextView>(R.id.textView).apply {
-            text = guitar.name
-        }
     }
 }
