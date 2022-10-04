@@ -1,12 +1,9 @@
 package com.example.myapplication
 
-import Models.CourseModel
 import Models.Guitars
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
@@ -142,7 +139,7 @@ class MainActivity : AppCompatActivity() {
     private fun onListItemClick(position: Int) {
         Toast.makeText(this, guitarModelArrayList[position].name, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, Details::class.java).apply {
-            putExtra(EXTRA_MESSAGE, guitarModelArrayList[position].name)
+            putExtra("extra_obj", guitarModelArrayList[position] as java.io.Serializable)
         }
         startActivity(intent)
         //Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()

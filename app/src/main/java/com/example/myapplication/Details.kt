@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import Models.Guitars
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,11 +12,11 @@ class Details : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         // Get the Intent that started this activity and extract the string
-        val message = intent.getStringExtra(EXTRA_MESSAGE)
+        val guitar = intent.extras?.get("extra_object") as Guitars
 
         // Capture the layout's TextView and set the string as its text
         val textView = findViewById<TextView>(R.id.textView).apply {
-            text = message
+            text = guitar.name
         }
     }
 }
