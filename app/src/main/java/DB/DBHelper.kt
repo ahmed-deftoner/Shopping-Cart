@@ -15,7 +15,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
                 NAME_COl + " TEXT," +
-                PRICE_COL + " TEXT" + ")")
+                PRICE_COL + " TEXT," +
+                IMAGE_COL + " BLOB," +
+                DESCRIPTION_COL + " TEXT," +
+                BODY_COL + " TEXT," +
+                SCALE_COL + " TEXT," +
+                RATING_COL + " TEXT" +
+                ")")
 
         // we are calling sqlite
         // method for executing our query
