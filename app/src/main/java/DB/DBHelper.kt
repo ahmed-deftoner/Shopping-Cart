@@ -48,32 +48,24 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    // below method is to get
-    // all data from our database
+
     fun getProduct(): Cursor? {
-
-        // here we are creating a readable
-        // variable of our database
-        // as we want to read value from it
         val db = this.readableDatabase
-
-        // below code returns a cursor to
-        // read data from the database
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
+        return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
 
     }
 
     companion object{
-        private val DATABASE_NAME = "GUITARS"
-        private val DATABASE_VERSION = 1
-        val TABLE_NAME = "Products"
-        val ID_COL = "id"
-        val NAME_COl = "name"
-        val PRICE_COL = "price"
-        val IMAGE_COL = "image"
-        val DESCRIPTION_COL = "description"
-        val SCALE_COL = "scale"
-        val BODY_COL = "body"
-        val RATING_COL = "rating"
+        private const val DATABASE_NAME = "GUITARS"
+        private const val DATABASE_VERSION = 1
+        const val TABLE_NAME = "Products"
+        const val ID_COL = "id"
+        const val NAME_COl = "name"
+        const val PRICE_COL = "price"
+        const val IMAGE_COL = "image"
+        const val DESCRIPTION_COL = "description"
+        const val SCALE_COL = "scale"
+        const val BODY_COL = "body"
+        const val RATING_COL = "rating"
     }
 }
