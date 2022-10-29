@@ -10,8 +10,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     // below is the method for creating a database by a sqlite query
     override fun onCreate(db: SQLiteDatabase) {
-        // below is a sqlite query, where column names
-        // along with their data types is given
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
                 NAME_COl + " TEXT," +
@@ -22,47 +20,37 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                 SCALE_COL + " TEXT," +
                 RATING_COL + " TEXT" +
                 ")")
-
-        // we are calling sqlite
-        // method for executing our query
         db.execSQL(query)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         // this method is to check if table already exists
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
 
     // This method is for adding data in our database
-    fun addName(name : String, age : String ){
+    fun addProduct(name : String, price : String, img : ByteArray,
+                    desc : String, body : String, scale : String, rating : String){
 
-        // below we are creating
-        // a content values variable
         val values = ContentValues()
 
-        // we are inserting our values
-        // in the form of key-value pair
         values.put(NAME_COl, name)
-        values.put(AGE_COL, age)
+        values.put(IMAGE_COL, img)
+        values.put(PRICE_COL, price)
+        values.put(DESCRIPTION_COL, desc)
+        values.put(BODY_COL, body)
+        values.put(SCALE_COL, scale)
+        values.put(RATING_COL, rating)
 
-        // here we are creating a
-        // writable variable of
-        // our database as we want to
-        // insert value in our database
         val db = this.writableDatabase
-
-        // all values are inserted into database
         db.insert(TABLE_NAME, null, values)
-
-        // at last we are
-        // closing our database
         db.close()
     }
 
     // below method is to get
     // all data from our database
-    fun getName(): Cursor? {
+    fun getProduct(): Cursor? {
 
         // here we are creating a readable
         // variable of our database
