@@ -1,17 +1,20 @@
 package com.example.myapplication
 
+import DB.DBHelper
 import Models.Guitars
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.io.ByteArrayOutputStream
 import java.util.*
+
 
 const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var guitarModelArrayList: ArrayList<Guitars>
 
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -111,7 +114,16 @@ class MainActivity : AppCompatActivity() {
                 3.6
             )
         )
-
+        val db = DBHelper(this, null)
+        for(guitar in guitarModelArrayList) {
+            val bitmap = BitmapFactory.decodeResource(resources, guitar.imgSrc)
+            val bos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+            val img: ByteArray = bos.toByteArray()
+            db.addProduct(guitar.name, guitar.price.toString(),
+                img, guitar.description, guitar.body, guitar.scaleLength.toString(),
+                guitar.rating.toString())
+        }
 
         // we are initializing our adapter class and passing our arraylist to it.
         val guitarAdapter = GuitarAdapter(this, guitarModelArrayList)
