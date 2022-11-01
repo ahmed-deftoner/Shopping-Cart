@@ -5,130 +5,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#00811010"
+    android:foregroundTint="#0000B8D4"
     tools:context=".Details"> <!-- usually the name of the Java file associated with this activity -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#252424"
-    android:backgroundTint="#191313"
-    android:focusable="auto"
-    tools:context=".Details">
-
-    <TextView
-        android:id="@+id/scale"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="66dp"
-        android:text="TextView"
-        android:textColor="#857E7E"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rating" />
+        android:background="#252424"
+        android:backgroundTint="#191313"
+        android:focusable="auto"
+        android:orientation="vertical"
+        tools:context=".Details">
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="350dp"
-        android:layout_height="292dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
-        android:text="                &quot;It is obvious that this guitar is from the RG series as it has a double-cutaway Superstrat body. RG421 is made of a mahogany body and it comes with a thin and sturdy Wizard III maple neck that has great playability. The neck is known to be fast and that is for a reason. The rosewood fretboard with white dot inlay features 24 jumbo frets. The tonal range of the guitar is no joke, full two octaves to play with. The RG421 is fitted with two of Ibanez’s high-output Quantum humbuckers. The passive pickups are controlled by volume and tone control knobs, as well as a selector switch for the pickups. Interestingly enough they went for a fixed bridge hear instead of a tremolo.&quot;, "
-        android:textColor="#C5C0C0"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/price"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="416dp"
+            android:layout_height="265dp"
+            app:circularflow_angles="45"
+            app:srcCompat="@drawable/evh" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="412dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="28dp"
-        android:text="Add to Cart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="128dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Ibanez"
+            android:textColor="#E4DEDE"
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="54dp"
-        android:text="Wizard III maple neck"
-        android:textColor="#88A5A5"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rating" />
+        <RatingBar
+            android:id="@+id/rating"
+            android:layout_width="147dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginBottom="5dp"
+            android:background="#002962FF"
+            android:clickable="false"
+            android:isIndicator="true"
+            android:max="5"
+            android:numStars="5"
+            android:progressBackgroundTint="#FDD835"
+            android:rotationX="0"
+            android:rotationY="0"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:stepSize="12"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="416dp"
-        android:layout_height="265dp"
-        app:circularflow_angles="45"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/evh" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="128dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="sans-serif"
-        android:text="Ibanez"
-        android:textColor="#E4DEDE"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img" />
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="40dp"
+            android:text="Wizard III maple neck"
+            android:textColor="#88A5A5"
+            android:textSize="16sp" />
 
-    <RatingBar
-        android:id="@+id/rating"
-        android:layout_width="147dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginBottom="5dp"
-        android:clickable="false"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:progressBackgroundTint="#FDD835"
-        android:rotationX="0"
-        android:rotationY="0"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:stepSize="12"
-        app:layout_constraintBottom_toTopOf="@+id/body"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:id="@+id/scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
+            android:text="22.3"
+            android:textColor="#857E7E"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="3dp"
-        android:text="$300"
-        android:textColor="#089E46"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="350dp"
+            android:layout_height="292dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp"
+            android:text="                &quot;It is obvious that this guitar is from the RG series as it has a double-cutaway Superstrat body. RG421 is made of a mahogany body and it comes with a thin and sturdy Wizard III maple neck that has great playability. The neck is known to be fast and that is for a reason. The rosewood fretboard with white dot inlay features 24 jumbo frets. The tonal range of the guitar is no joke, full two octaves to play with. The RG421 is fitted with two of Ibanez’s high-output Quantum humbuckers. The passive pickups are controlled by volume and tone control knobs, as well as a selector switch for the pickups. Interestingly enough they went for a fixed bridge hear instead of a tremolo.&quot;, "
+            android:textColor="#C5C0C0"
+            android:textSize="16sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="3dp"
+            android:text="$300"
+            android:textColor="#089E46"
+            android:textSize="60sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="412dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="28dp"
+            android:text="Add to Cart" />
+
+
+    </LinearLayout>
 </ScrollView>
