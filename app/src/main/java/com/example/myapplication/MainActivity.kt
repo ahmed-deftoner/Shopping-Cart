@@ -17,12 +17,9 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 
 
-const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
-
 class MainActivity : AppCompatActivity() {
 
     lateinit var guitarRV: RecyclerView
-    lateinit var guitarRVAdapter: GuitarAdapter
     lateinit var guitarModelArrayList: ArrayList<Guitars>
 
 
