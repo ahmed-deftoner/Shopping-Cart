@@ -1,11 +1,17 @@
 package com.example.myapplication
 
+import DB.DBHelper
 import Models.Guitars
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
+import java.io.ByteArrayOutputStream
 
 class Details : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -27,6 +33,21 @@ class Details : AppCompatActivity() {
             scale.setText(guitar.scaleLength.toString())
             price.setText(guitar.price.toString())
             rating.rating = guitar.rating.toFloat()
+            val btn = findViewById<Button>(R.id.addcartbutton)
+
+            btn.setOnClickListener {
+                val db = DBHelper(this, null)
+                val bitmap = BitmapFactory.decodeResource(resources, guitar.imgSrc)
+                val bos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+                val img: ByteArray = bos.toByteArray()
+                db.addtoCart(guitar.name, guitar.price.toString(),
+                    img, guitar.description, guitar.body, guitar.scaleLength.toString(),
+                    guitar.rating.toString())
+                Toast.makeText(this@Details, "Added to cart.", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
     }
 }

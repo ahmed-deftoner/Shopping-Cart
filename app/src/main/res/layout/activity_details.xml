@@ -100,7 +100,7 @@
             android:textSize="60sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/addcartbutton"
             android:layout_width="412dp"
             android:layout_height="51dp"
             android:layout_marginTop="28dp"
