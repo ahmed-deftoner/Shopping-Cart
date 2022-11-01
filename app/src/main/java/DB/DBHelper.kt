@@ -20,7 +20,18 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                 SCALE_COL + " TEXT," +
                 RATING_COL + " TEXT" +
                 ")")
+        val query2 = ("CREATE TABLE " + CART_TABLE + " ("
+                + ID_COL + " INTEGER PRIMARY KEY, " +
+                NAME_COl + " TEXT," +
+                PRICE_COL + " TEXT," +
+                IMAGE_COL + " BLOB," +
+                DESCRIPTION_COL + " TEXT," +
+                BODY_COL + " TEXT," +
+                SCALE_COL + " TEXT," +
+                RATING_COL + " TEXT" +
+                ")")
         db.execSQL(query)
+        db.execSQL(query2)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
@@ -48,6 +59,24 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
+    fun addtoCart(name : String, price : String, img : ByteArray,
+                   desc : String, body : String, scale : String, rating : String){
+
+        val values = ContentValues()
+
+        values.put(NAME_COl, name)
+        values.put(IMAGE_COL, img)
+        values.put(PRICE_COL, price)
+        values.put(DESCRIPTION_COL, desc)
+        values.put(BODY_COL, body)
+        values.put(SCALE_COL, scale)
+        values.put(RATING_COL, rating)
+
+        val db = this.writableDatabase
+        db.insert(CART_TABLE, null, values)
+        db.close()
+    }
+
 
     fun getProduct(): Cursor? {
         val db = this.readableDatabase
@@ -55,10 +84,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     }
 
+    fun getCart(): Cursor? {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT * FROM $CART_TABLE", null)
+
+    }
+
     companion object{
         private const val DATABASE_NAME = "GUITARS"
         private const val DATABASE_VERSION = 1
         const val TABLE_NAME = "Products"
+        const val CART_TABLE = "Cart"
         const val ID_COL = "id"
         const val NAME_COl = "name"
         const val PRICE_COL = "price"
