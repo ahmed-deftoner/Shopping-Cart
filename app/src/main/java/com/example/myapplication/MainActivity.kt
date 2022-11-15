@@ -126,8 +126,6 @@ class MainActivity : AppCompatActivity() {
         }
         */
 
-        // we are initializing our adapter class and passing our arraylist to it.
-        println("got dis far")
         val guitarAdapter = GuitarAdapter(this, guitarModelArrayList)
         { position -> onListItemClick(position) }
         // below line is for setting a layout manager for our recycler view.
@@ -137,14 +135,12 @@ class MainActivity : AppCompatActivity() {
         guitarRV.layoutManager = linearLayoutManager
         guitarRV.adapter = guitarAdapter
 
-        println("and dis")
-
         // Write a message to the database
-        val database = Firebase.database
-        val myRef = database.getReference("message")
+        /*val database = Firebase.database
+        val myRef = database.getReference("guitars")
 
-        myRef.setValue("Hello, World!")
-
+        myRef.setValue(guitarModelArrayList)
+        */
     }
 
     // calling on create option menu
