@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import Models.Guitars
 import android.annotation.SuppressLint
+import android.widget.RatingBar
 
 class GuitarAdapter(private val context: Context, guitarModelArrayList: ArrayList<Guitars>,
                     private val onItemClicked: (position: Int) -> Unit) :
@@ -30,12 +31,12 @@ class GuitarAdapter(private val context: Context, guitarModelArrayList: ArrayLis
         : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val guitarIV: ImageView
         val guitarNameTV: TextView
-        val guitarRatingTV: TextView
+        //val guitarRatingTV: RatingBar
         init {
             itemView.setOnClickListener(this)
             guitarIV = itemView.findViewById(R.id.idIVGuitarImage)
             guitarNameTV = itemView.findViewById(R.id.idTVGuitarName)
-            guitarRatingTV = itemView.findViewById(R.id.idTVGuitarRating)
+          //  guitarRatingTV = itemView.findViewById(R.id.rating)
         }
         override fun onClick(v: View) {
             val position = adapterPosition
@@ -52,7 +53,7 @@ class GuitarAdapter(private val context: Context, guitarModelArrayList: ArrayLis
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model: Guitars = guitarModelArrayList[position]
         holder.guitarNameTV.setText(model.name)
-        holder.guitarRatingTV.setText("" + model.rating)
+        //holder.guitarRatingTV.rating = model.rating.toFloat()
         holder.guitarIV.setImageResource(model.imgSrc)
     }
 }

@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.io.ByteArrayOutputStream
 
 class Details : AppCompatActivity() {
@@ -36,7 +38,7 @@ class Details : AppCompatActivity() {
             val btn = findViewById<Button>(R.id.addcartbutton)
 
             btn.setOnClickListener {
-                val db = DBHelper(this, null)
+               /* val db = DBHelper(this, null)
                 val bitmap = BitmapFactory.decodeResource(resources, guitar.imgSrc)
                 val bos = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
@@ -44,6 +46,12 @@ class Details : AppCompatActivity() {
                 db.addtoCart(guitar.name, guitar.price.toString(),
                     img, guitar.description, guitar.body, guitar.scaleLength.toString(),
                     guitar.rating.toString())
+
+                */
+                val database = Firebase.database
+                val myRef = database.getReference("cart")
+
+                myRef.setValue(guitar)
                 Toast.makeText(this@Details, "Added to cart.", Toast.LENGTH_SHORT).show()
             }
         }
