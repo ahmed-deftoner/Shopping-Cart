@@ -24,8 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var guitarRV: RecyclerView
     lateinit var guitarModelArrayList: ArrayList<Guitars>
 
-
-    @SuppressLint("NotifyDataSetChanged", "WrongThread")
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -124,19 +123,22 @@ class MainActivity : AppCompatActivity() {
             db.addProduct(guitar.name, guitar.price.toString(),
                 img, guitar.description, guitar.body, guitar.scaleLength.toString(),
                 guitar.rating.toString())
-        }*/
+        }
+        */
 
         // we are initializing our adapter class and passing our arraylist to it.
+        println("got dis far")
         val guitarAdapter = GuitarAdapter(this, guitarModelArrayList)
         { position -> onListItemClick(position) }
-
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
         // in below two lines we are setting layoutmanager and adapter to our recycler view.
         guitarRV.layoutManager = linearLayoutManager
         guitarRV.adapter = guitarAdapter
+
+        println("and dis")
+
         // Write a message to the database
         val database = Firebase.database
         val myRef = database.getReference("message")
@@ -154,6 +156,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    /*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
         if (id == R.id.cart_menu) {
@@ -162,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
     private fun onListItemClick(position: Int) {
         Toast.makeText(this, guitarModelArrayList[position].name, Toast.LENGTH_SHORT).show()
