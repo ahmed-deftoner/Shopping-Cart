@@ -7,16 +7,23 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.ByteArrayOutputStream
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -126,6 +133,22 @@ class MainActivity : AppCompatActivity() {
         }
         */
 
+        /*
+        val products = arrayListOf<Guitars>()
+        val ref = FirebaseDatabase.getInstance().getReference("guitars")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (productSnapshot in dataSnapshot.children) {
+                    val guitar = productSnapshot.getValue(Guitars::class.java)
+                    products.add(guitar!!)
+                }
+                println(products)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                throw databaseError.toException()
+            }
+        })*/
         val guitarAdapter = GuitarAdapter(this, guitarModelArrayList)
         { position -> onListItemClick(position) }
         // below line is for setting a layout manager for our recycler view.
@@ -136,11 +159,11 @@ class MainActivity : AppCompatActivity() {
         guitarRV.adapter = guitarAdapter
 
         // Write a message to the database
-        /*val database = Firebase.database
+        val database = Firebase.database
         val myRef = database.getReference("guitars")
 
         myRef.setValue(guitarModelArrayList)
-        */
+
     }
 
     // calling on create option menu
