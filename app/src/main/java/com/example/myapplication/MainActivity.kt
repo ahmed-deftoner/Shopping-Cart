@@ -1,13 +1,9 @@
 package com.example.myapplication
 
-import DB.DBHelper
 import Models.Guitars
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -18,10 +14,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import java.io.ByteArrayOutputStream
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -30,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var guitarRV: RecyclerView
     lateinit var guitars: ArrayList<Guitars>
+    val ref = FirebaseDatabase.getInstance().getReference("guitars")
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         */
 
         guitars = arrayListOf()
-        val ref = FirebaseDatabase.getInstance().getReference("guitars")
+
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (productSnapshot in dataSnapshot.children) {
@@ -175,7 +168,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    /*
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
         if (id == R.id.cart_menu) {
@@ -184,7 +177,7 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
-    }*/
+    }
 
     private fun onListItemClick(position: Int) {
         Toast.makeText(this, guitars[position].name, Toast.LENGTH_SHORT).show()
