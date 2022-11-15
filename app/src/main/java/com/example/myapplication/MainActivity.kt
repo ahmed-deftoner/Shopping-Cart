@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -112,6 +114,7 @@ class MainActivity : AppCompatActivity() {
                 3.6
             )
         )
+        /*
         val db = DBHelper(this, null)
         for(guitar in guitarModelArrayList) {
             val bitmap = BitmapFactory.decodeResource(resources, guitar.imgSrc)
@@ -121,7 +124,7 @@ class MainActivity : AppCompatActivity() {
             db.addProduct(guitar.name, guitar.price.toString(),
                 img, guitar.description, guitar.body, guitar.scaleLength.toString(),
                 guitar.rating.toString())
-        }
+        }*/
 
         // we are initializing our adapter class and passing our arraylist to it.
         val guitarAdapter = GuitarAdapter(this, guitarModelArrayList)
@@ -134,6 +137,11 @@ class MainActivity : AppCompatActivity() {
         // in below two lines we are setting layoutmanager and adapter to our recycler view.
         guitarRV.layoutManager = linearLayoutManager
         guitarRV.adapter = guitarAdapter
+        // Write a message to the database
+        val database = Firebase.database
+        val myRef = database.getReference("message")
+
+        myRef.setValue("Hello, World!")
 
     }
 
