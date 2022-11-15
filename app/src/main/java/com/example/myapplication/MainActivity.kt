@@ -29,7 +29,7 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
 
     lateinit var guitarRV: RecyclerView
-    lateinit var guitarModelArrayList: ArrayList<Guitars>
+    lateinit var guitars: ArrayList<Guitars>
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         guitarRV = findViewById(R.id.idRVGuitars)
 
-        // Here, we have created new array list and added data to it
+        /* Here, we have created new array list and added data to it
         guitarModelArrayList = ArrayList()
         guitarModelArrayList.add(
             Guitars("EVH Wolfgang Standard",
@@ -120,6 +120,7 @@ class MainActivity : AppCompatActivity() {
                 3.6
             )
         )
+        */
         /*
         val db = DBHelper(this, null)
         for(guitar in guitarModelArrayList) {
@@ -133,23 +134,22 @@ class MainActivity : AppCompatActivity() {
         }
         */
 
-        /*
-        val products = arrayListOf<Guitars>()
+        guitars = arrayListOf()
         val ref = FirebaseDatabase.getInstance().getReference("guitars")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (productSnapshot in dataSnapshot.children) {
                     val guitar = productSnapshot.getValue(Guitars::class.java)
-                    products.add(guitar!!)
+                    guitars.add(guitar!!)
                 }
-                println(products)
+                println(guitars)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 throw databaseError.toException()
             }
-        })*/
-        val guitarAdapter = GuitarAdapter(this, guitarModelArrayList)
+        })
+        val guitarAdapter = GuitarAdapter(this, guitars)
         { position -> onListItemClick(position) }
         // below line is for setting a layout manager for our recycler view.
         // here we are creating vertical list so we will provide orientation as vertical
@@ -159,10 +159,10 @@ class MainActivity : AppCompatActivity() {
         guitarRV.adapter = guitarAdapter
 
         // Write a message to the database
-        val database = Firebase.database
+        /*val database = Firebase.database
         val myRef = database.getReference("guitars")
 
-        myRef.setValue(guitarModelArrayList)
+        myRef.setValue(guitarModelArrayList)*/
 
     }
 
@@ -187,9 +187,9 @@ class MainActivity : AppCompatActivity() {
     }*/
 
     private fun onListItemClick(position: Int) {
-        Toast.makeText(this, guitarModelArrayList[position].name, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, guitars[position].name, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, Details::class.java).apply {
-            putExtra("guitar", guitarModelArrayList[position] as java.io.Serializable)
+            putExtra("guitar", guitars[position] as java.io.Serializable)
         }
         startActivity(intent)
         //Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
