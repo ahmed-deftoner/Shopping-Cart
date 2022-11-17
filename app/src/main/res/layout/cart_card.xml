@@ -25,7 +25,7 @@
 
         <!-- ImageVIew to display our Course Image -->
         <ImageView
-            android:id="@+id/idIVGuitarImage"
+            android:id="@+id/cartImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
@@ -38,12 +38,12 @@
 
         <!-- Text View to display Course Name -->
         <TextView
-            android:id="@+id/idTVGuitarName"
+            android:id="@+id/cartName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/idIVGuitarImage"
+            android:layout_toEndOf="@id/cartImg"
             android:text="@string/course_name"
             android:textColor="@color/black"
             android:textSize="18sp"
