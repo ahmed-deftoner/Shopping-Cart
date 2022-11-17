@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        guitarRV = findViewById(R.id.idRVGuitars)
 
         /* Here, we have created new array list and added data to it
         guitarModelArrayList = ArrayList()
@@ -142,6 +139,10 @@ class MainActivity : AppCompatActivity() {
                 throw databaseError.toException()
             }
         })
+
+        setContentView(R.layout.activity_main)
+        guitarRV = findViewById(R.id.idRVGuitars)
+
         val guitarAdapter = GuitarAdapter(this, guitars)
         { position -> onListItemClick(position) }
         // below line is for setting a layout manager for our recycler view.

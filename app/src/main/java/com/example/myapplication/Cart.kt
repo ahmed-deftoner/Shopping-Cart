@@ -18,12 +18,9 @@ class Cart : AppCompatActivity() {
 
     lateinit var guitarRV: RecyclerView
     lateinit var guitars: ArrayList<Guitars>
-    val ref = FirebaseDatabase.getInstance().getReference("cart")
+    val ref = FirebaseDatabase.getInstance().getReference("guitars")
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart)
-        guitarRV = findViewById(R.id.cartGuitars)
 
         guitars = arrayListOf()
 
@@ -40,6 +37,10 @@ class Cart : AppCompatActivity() {
                 throw databaseError.toException()
             }
         })
+
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_cart)
+        guitarRV = findViewById(R.id.cartGuitars)
         val guitarAdapter = GuitarAdapter(this, guitars)
         { position -> onListItemClick(position) }
         // below line is for setting a layout manager for our recycler view.
