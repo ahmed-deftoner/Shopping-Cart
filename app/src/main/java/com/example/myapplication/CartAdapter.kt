@@ -16,7 +16,7 @@ class CartAdapter(private val context: Context, guitarModelArrayList: ArrayList<
     private var guitarModelArrayList: ArrayList<Guitars>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.ViewHolder {
         // to inflate the layout for each item of recycler view.
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.cart_card, parent, false)
         return ViewHolder(view,onItemClicked)
     }
 
