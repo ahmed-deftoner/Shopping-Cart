@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import Models.Guitars
 import android.annotation.SuppressLint
+import android.widget.Button
 import android.widget.RatingBar
 
 class CartAdapter(private val context: Context, guitarModelArrayList: ArrayList<Guitars>,
@@ -31,11 +32,17 @@ class CartAdapter(private val context: Context, guitarModelArrayList: ArrayList<
         : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val cartIV: ImageView
         val cartNameTV: TextView
+        val minus: Button
+        val counter: TextView
+        val plus: Button
         //val guitarRatingTV: RatingBar
         init {
             itemView.setOnClickListener(this)
             cartIV = itemView.findViewById(R.id.cartImg)
             cartNameTV = itemView.findViewById(R.id.cartName)
+            minus = itemView.findViewById(R.id.minus);
+            counter = itemView.findViewById(R.id.counter);
+            plus = itemView.findViewById(R.id.plus);
             //  guitarRatingTV = itemView.findViewById(R.id.rating)
         }
         override fun onClick(v: View) {

@@ -3,6 +3,8 @@ package com.example.myapplication
 import Models.Guitars
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,11 @@ class Cart : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
+
+        var minus = findViewById<Button>(R.id.minus);
+        var counter = findViewById<TextView>(R.id.counter);
+        var plus = findViewById<Button>(R.id.plus);
+
 
         /*
         guitars = arrayListOf()
