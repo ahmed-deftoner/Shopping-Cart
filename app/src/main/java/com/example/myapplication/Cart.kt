@@ -26,11 +26,6 @@ class Cart : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        var minus = findViewById<Button>(R.id.minus);
-        var counter = findViewById<TextView>(R.id.counter);
-        var plus = findViewById<Button>(R.id.plus);
-
-
         /*
         guitars = arrayListOf()
 
