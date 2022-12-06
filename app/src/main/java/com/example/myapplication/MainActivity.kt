@@ -1,100 +1,36 @@
 package com.example.myapplication
 
-import Models.Guitars
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import kotlin.collections.ArrayList
-
+import android.widget.ImageView
 
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var guitarRV: RecyclerView
-    lateinit var guitars: ArrayList<Guitars>
-    val ref = FirebaseDatabase.getInstance().getReference("guitars")
+    var btnAddtoCart: Button? = null
 
-    @SuppressLint("NotifyDataSetChanged")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        guitars = arrayListOf()
-
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (productSnapshot in dataSnapshot.children) {
-                    val guitar = productSnapshot.getValue(Guitars::class.java)
-                    guitars.add(guitar!!)
-                }
-                println(guitars)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                throw databaseError.toException()
-            }
-        })
-
         setContentView(R.layout.activity_main)
-        guitarRV = findViewById(R.id.idRVGuitars)
+        val intent = intent
+        val name = "Stinger"
+        val price = 2300
+        val image = R.drawable.gfg
+        val id = 34
+        val desc_id = 56
+        val description: String = java.lang.String.valueOf(R.string.descriptionstring) + desc_id
 
-        val guitarAdapter = GuitarAdapter(this, guitars)
-        { position -> onListItemClick(position) }
-        // below line is for setting a layout manager for our recycler view.
-        // here we are creating vertical list so we will provide orientation as vertical
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        // in below two lines we are setting layoutmanager and adapter to our recycler view.
-        guitarRV.layoutManager = linearLayoutManager
-        guitarRV.adapter = guitarAdapter
+        //itemsDeclaration();
+        val nameTextView = findViewById<TextView>(R.id.product_name)
+        nameTextView.text = name
+        val priceTag = findViewById<TextView>(R.id.priceTag)
+        priceTag.text = price.toString()
+        val img: ImageView = findViewById(R.id.imageView2)
+        img.setImageResource(image)
+        btnAddtoCart = findViewById(R.id.buttoncart)
 
-        // Write a message to the database
-        /*val database = Firebase.database
-        val myRef = database.getReference("guitars")
-
-        myRef.setValue(guitarModelArrayList)*/
-
-    }
-
-    // calling on create option menu
-    // layout to inflate our menu file.
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
-        menuInflater.inflate(R.menu.menu_items, menu)
-
-        return true
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id: Int = item.itemId
-        if (id == R.id.cart_menu) {
-            val intent = Intent(this, Cart::class.java).apply {}
-            startActivity(intent)
-            return true
-        }
-        if (id == R.id.about_menu) {
-            val intent = Intent(this, AboutUsActivity::class.java).apply {}
-            startActivity(intent)
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun onListItemClick(position: Int) {
-        Toast.makeText(this, guitars[position].name, Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, Details::class.java).apply {
-            putExtra("guitar", guitars[position] as java.io.Serializable)
-        }
-        startActivity(intent)
-        //Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
     }
 }
