@@ -1,100 +1,85 @@
 package com.example.myapplication
 
-import Models.Guitars
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import kotlin.collections.ArrayList
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.ImageView
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var guitarRV: RecyclerView
-    lateinit var guitars: ArrayList<Guitars>
-    val ref = FirebaseDatabase.getInstance().getReference("guitars")
+    val CHANNEL_ID = "23"
+    val CHANNEL_NAME = "cartNotify"
+    val NOTIF_ID = 0
 
-    @SuppressLint("NotifyDataSetChanged")
+    private fun createNotifChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT).apply {
+                lightColor = Color.BLUE
+                enableLights(true)
+            }
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        guitars = arrayListOf()
-
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (productSnapshot in dataSnapshot.children) {
-                    val guitar = productSnapshot.getValue(Guitars::class.java)
-                    guitars.add(guitar!!)
-                }
-                println(guitars)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                throw databaseError.toException()
-            }
-        })
-
         setContentView(R.layout.activity_main)
-        guitarRV = findViewById(R.id.idRVGuitars)
+        createNotifChannel()
+        val name = "Stinger"
+        val price = 2300
+        val image = R.drawable.gfg
+        //val desc_id = 56
+        //val description: String = java.lang.String.valueOf(R.string.descriptionstring) + desc_id
 
-        val guitarAdapter = GuitarAdapter(this, guitars)
-        { position -> onListItemClick(position) }
-        // below line is for setting a layout manager for our recycler view.
-        // here we are creating vertical list so we will provide orientation as vertical
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        // in below two lines we are setting layoutmanager and adapter to our recycler view.
-        guitarRV.layoutManager = linearLayoutManager
-        guitarRV.adapter = guitarAdapter
+        //itemsDeclaration();
+        val nameTextView = findViewById<TextView>(R.id.product_name)
+        nameTextView.text = name
+        val priceTag = findViewById<TextView>(R.id.priceTag)
+        priceTag.text = "$$price"
+        val img: ImageView = findViewById(R.id.imageView2)
+        img.setImageResource(image)
+        val btnAddCart = findViewById<Button>(R.id.buttoncart)
 
-        // Write a message to the database
-        /*val database = Firebase.database
-        val myRef = database.getReference("guitars")
-
-        myRef.setValue(guitarModelArrayList)*/
-
-    }
-
-    // calling on create option menu
-    // layout to inflate our menu file.
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
-        menuInflater.inflate(R.menu.menu_items, menu)
-
-        return true
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id: Int = item.itemId
-        if (id == R.id.cart_menu) {
-            val intent = Intent(this, Cart::class.java).apply {}
-            startActivity(intent)
-            return true
+        val pendingIntent = TaskStackBuilder.create(this).run {
+            addNextIntentWithParentStack(intent)
+            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
-        if (id == R.id.about_menu) {
-            val intent = Intent(this, AboutUsActivity::class.java).apply {}
-            startActivity(intent)
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
-    private fun onListItemClick(position: Int) {
-        Toast.makeText(this, guitars[position].name, Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, Details::class.java).apply {
-            putExtra("guitar", guitars[position] as java.io.Serializable)
+        val notif = NotificationCompat.Builder(this,CHANNEL_ID)
+            .setContentTitle("You bought $name")
+            .setContentText("Just for $price . Enjoy ya cheeky bastard!")
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("Just for $price . Enjoy ya cheeky bastard!\nSale in the next week... Catch up"))
+            .setLargeIcon(BitmapFactory.decodeResource(getResources(), image))
+            .setStyle(NotificationCompat.BigPictureStyle()
+                .bigPicture(BitmapFactory.decodeResource(getResources(), image))
+                .bigLargeIcon(null))
+            .setSmallIcon(R.drawable.notification_icon)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .build()
+
+
+        val notifManger = NotificationManagerCompat.from(this)
+
+
+        // onClick listener for the button
+        btnAddCart.setOnClickListener {
+            notifManger.notify(NOTIF_ID,notif)
+
         }
-        startActivity(intent)
-        //Toast.makeText(this, templist[position].getCourse_name(), Toast.LENGTH_SHORT).show()
     }
 }
