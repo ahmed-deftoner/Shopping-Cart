@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val nameTextView = findViewById<TextView>(R.id.product_name)
         nameTextView.text = name
         val priceTag = findViewById<TextView>(R.id.priceTag)
-        priceTag.text = price.toString()
+        priceTag.text = "$$price"
         val img: ImageView = findViewById(R.id.imageView2)
         img.setImageResource(image)
         val btnAddCart = findViewById<Button>(R.id.buttoncart)
